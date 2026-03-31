@@ -2,6 +2,7 @@ import Navigation from '../../../components/Navigation';
 import Footer from '../../../components/Footer';
 import MasonryGrid from '../../../components/MasonryGrid';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
 async function fetchCategoryPosts(slug: string) {
   const wpApiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
@@ -50,6 +51,18 @@ async function fetchCategoryPosts(slug: string) {
     console.error("Failed to fetch category:", error);
     return null;
   }
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const decodedSlug = decodeURIComponent(params.slug);
+  const data = await fetchCategoryPosts(decodedSlug);
+  
+  return {
+    title: data ? `หมวดหมู่: ${data.categoryName} | JABNOM` : 'Category',
+    alternates: {
+      canonical: `/category/${decodedSlug}`,
+    }
+  };
 }
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {

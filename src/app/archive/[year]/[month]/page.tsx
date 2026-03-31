@@ -45,9 +45,18 @@ async function fetchArchivePosts(year: string, month: string) {
     const name = new Date(`${year}-${month}-02`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
     return { archiveName: name, posts: formattedPosts };
   } catch (error) {
-    console.error("Failed to fetch archive:", error);
+    console.error("Failed to fetch archive posts:", error);
     return null;
   }
+}
+
+export async function generateMetadata({ params }: { params: { year: string, month: string } }) {
+  return {
+    title: `Archive: ${params.month}/${params.year} | JABNOM`,
+    alternates: {
+      canonical: `/archive/${params.year}/${params.month}`,
+    }
+  };
 }
 
 export default async function ArchivePage({ params }: { params: { year: string, month: string } }) {

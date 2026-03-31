@@ -46,6 +46,18 @@ async function fetchTagPosts(slug: string) {
   }
 }
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const decodedSlug = decodeURIComponent(params.slug);
+  const data = await fetchTagPosts(decodedSlug);
+  
+  return {
+    title: data ? `เรื่องที่แฮชแท็ก: ${data.tagName} | JABNOM` : 'Tag',
+    alternates: {
+      canonical: `/tag/${decodedSlug}`,
+    }
+  };
+}
+
 export default async function TagPage({ params }: { params: { slug: string } }) {
   const decodedSlug = decodeURIComponent(params.slug);
   const data = await fetchTagPosts(decodedSlug);

@@ -42,6 +42,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     twitter: {
       card: yoast.twitter_card,
+    },
+    alternates: {
+      canonical: yoast.canonical || `/${decodedSlug}`,
     }
   };
 }

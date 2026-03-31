@@ -15,9 +15,13 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://jabnom.com'),
   title: 'JABNOM | แหล่งรวมสาวสวย ดารา นางแบบ โอนลี่แฟนส์',
   description: 'เว็บไซต์ที่รวบรวมรูปภาพและเรื่องราวของสาวสวย ดารา นางแบบ เน็ตไอดอล และโอนลี่แฟนส์ ที่คุณไม่ควรพลาด',
   keywords: ['สาวสวย', 'ดารา', 'นางแบบ', 'เน็ตไอดอล', 'โอนลี่แฟนส์', 'jabnom'],
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({
