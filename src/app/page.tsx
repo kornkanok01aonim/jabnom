@@ -177,7 +177,7 @@ export default async function Home() {
       <section className="container" style={{ padding: '4rem 2rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 70%' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem', color: 'var(--accent-color)' }}>Latest Post</h2>
-          <MasonryGrid posts={gridPosts} />
+          <MasonryGrid posts={gridPosts} hideHeader={true} />
         </div>
         
         <aside style={{ flex: '1 1 25%', minWidth: '300px' }}>
