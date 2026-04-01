@@ -32,10 +32,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: cleanTitle,
+    title: yoast.title,
     description: yoast.description || yoast.og_description,
     openGraph: {
-      title: yoast.og_title || cleanTitle,
+      title: yoast.og_title || yoast.title,
       description: yoast.og_description || yoast.description,
       url: yoast.og_url,
       siteName: yoast.og_site_name,
