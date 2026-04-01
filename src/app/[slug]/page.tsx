@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       card: yoast.twitter_card,
     },
     alternates: {
-      canonical: yoast.canonical || `/${decodedSlug}`,
+      canonical: yoast.canonical ? yoast.canonical.replace('admin.jabnom.com', 'jabnom.com') : `/${decodedSlug}`,
     }
   };
 }

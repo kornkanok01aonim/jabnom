@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `หมวดหมู่: ${data.categoryName} | JABNOM`,
     description: data.description || `รวมบทความทั้งหมดในหมวดหมู่ ${data.categoryName}`,
     alternates: {
-      canonical: `/category/${decodedSlug}`,
+      canonical: `https://jabnom.com/category/${decodedSlug}`,
     }
   };
 }

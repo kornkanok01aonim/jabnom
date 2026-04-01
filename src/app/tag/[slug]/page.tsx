@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `เรื่องที่แฮชแท็ก: ${data.tagName} | JABNOM`,
     description: data.description || `รวมบทความทั้งหมดที่ติดแฮชแท็ก ${data.tagName}`,
     alternates: {
-      canonical: `/tag/${decodedSlug}`,
+      canonical: `https://jabnom.com/tag/${decodedSlug}`,
     }
   };
 }
