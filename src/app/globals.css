@@ -59,6 +59,79 @@ a {
   text-shadow: 0 0 10px var(--accent-glow);
 }
 
+/* Classic Editor Gallery */
+.classic-editor-content .gallery {
+  display: grid;
+  gap: 1.5rem;
+  margin: 3rem 0;
+  width: 100%;
+}
+.classic-editor-content .gallery-columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.classic-editor-content .gallery-columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.classic-editor-content .gallery-item {
+  margin: 0 !important;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+.classic-editor-content .gallery-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px var(--accent-glow);
+  border-color: var(--accent-color);
+  z-index: 2;
+}
+.classic-editor-content .gallery-icon {
+  margin: 0 !important;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.classic-editor-content .gallery-icon a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.classic-editor-content .gallery-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  margin: 0 !important;
+  border-radius: 0 !important; /* let container handle radius */
+  transition: transform 0.6s ease;
+}
+.classic-editor-content .gallery-item:hover .gallery-icon img {
+  transform: scale(1.08);
+}
+.classic-editor-content .gallery-caption {
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0;
+  background: rgba(24, 24, 27, 0.8);
+  backdrop-filter: blur(8px);
+}
+/* Responsive adjustments for gallery */
+@media (max-width: 768px) {
+  .classic-editor-content .gallery-columns-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .classic-editor-content .gallery-columns-3,
+  .classic-editor-content .gallery-columns-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Sidebar Links */
 .archive-link:hover {
   color: var(--accent-color) !important;
