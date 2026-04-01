@@ -42,6 +42,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       images: yoast.og_image ? yoast.og_image.map((img: any) => ({ url: img.url })) : [],
       locale: yoast.og_locale,
       type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.modified,
     },
     twitter: {
       card: yoast.twitter_card,
