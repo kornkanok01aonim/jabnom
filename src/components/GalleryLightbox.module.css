@@ -1,0 +1,110 @@
+.lightboxOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(9, 9, 11, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards ease-in-out;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.imageContainer {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightboxImage {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.counter {
+  margin-top: 1rem;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+/* Base button styles */
+.closeBtn, .navBtnPrev, .navBtnNext {
+  position: absolute;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10000;
+}
+
+.closeBtn {
+  top: 1rem;
+  right: 2rem;
+  font-size: 3rem;
+  width: 44px;
+  height: 44px;
+  line-height: 1;
+}
+
+.closeBtn:hover {
+  color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.navBtnPrev, .navBtnNext {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  width: 60px;
+  height: 100px;
+  line-height: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.navBtnPrev:hover, .navBtnNext:hover {
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--accent-color);
+}
+
+.navBtnPrev {
+  left: 1rem;
+}
+
+.navBtnNext {
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .navBtnPrev, .navBtnNext {
+    width: 40px;
+    font-size: 3rem;
+  }
+  .closeBtn {
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 2.5rem;
+  }
+}

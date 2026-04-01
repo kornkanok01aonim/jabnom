@@ -3,7 +3,7 @@ import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-
+import GalleryLightbox from '../../components/GalleryLightbox';
 async function fetchPostBySlug(slug: string) {
   const wpApiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
   if (!wpApiUrl) return null;
@@ -136,6 +136,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           </div>
         )}
       </article>
+      <GalleryLightbox />
       <Footer />
     </main>
   );
