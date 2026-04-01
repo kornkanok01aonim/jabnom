@@ -62,6 +62,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
   const termGroup = post._embedded?.['wp:term'] || [];
   const catTerms = termGroup[0] || [];
+  const tagTerms = termGroup[1] || [];
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -113,6 +114,27 @@ export default async function PostPage({ params }: { params: { slug: string } })
           style={{ fontSize: '1.15rem', lineHeight: '1.8' }}
           dangerouslySetInnerHTML={{ __html: post.content.rendered }} 
         />
+
+        {tagTerms.length > 0 && (
+          <div style={{ 
+            marginTop: '3rem', 
+            paddingTop: '2rem', 
+            borderTop: '1px solid var(--border-color)',
+            fontSize: '0.9rem',
+            color: 'var(--text-muted)',
+            lineHeight: '1.8'
+          }}>
+            <span style={{ fontWeight: 'bold', color: 'var(--text-color)' }}>Tags:</span>{' '}
+            {tagTerms.map((tag: any, index: number) => (
+              <span key={tag.slug}>
+                <Link prefetch={false} href={`/tag/${tag.slug}`} className="post-tag-link">
+                  {tag.name}
+                </Link>
+                {index < tagTerms.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+          </div>
+        )}
       </article>
       <Footer />
     </main>
