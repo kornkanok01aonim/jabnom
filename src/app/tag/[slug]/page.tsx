@@ -39,7 +39,7 @@ async function fetchTagPosts(slug: string) {
       };
     });
 
-    return { tagName: tag.name, posts: formattedPosts };
+    return { tagName: tag.name, description: tag.description, posts: formattedPosts };
   } catch (error) {
     console.error("Failed to fetch tag:", error);
     return null;
@@ -50,8 +50,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const decodedSlug = decodeURIComponent(params.slug);
   const data = await fetchTagPosts(decodedSlug);
   
+  if (!data) return { title: 'Tag' };
+
   return {
-    title: data ? `เรื่องที่แฮชแท็ก: ${data.tagName} | JABNOM` : 'Tag',
+    title: `เรื่องที่แฮชแท็ก: ${data.tagName} | JABNOM`,
+    description: data.description || `รวมบทความทั้งหมดที่ติดแฮชแท็ก ${data.tagName}`,
     alternates: {
       canonical: `/tag/${decodedSlug}`,
     }

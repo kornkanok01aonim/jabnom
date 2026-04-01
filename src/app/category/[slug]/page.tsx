@@ -45,6 +45,7 @@ async function fetchCategoryPosts(slug: string) {
 
     return {
       categoryName: category.name,
+      description: category.description,
       posts: formattedPosts
     };
   } catch (error) {
@@ -57,8 +58,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const decodedSlug = decodeURIComponent(params.slug);
   const data = await fetchCategoryPosts(decodedSlug);
   
+  if (!data) return { title: 'Category' };
+
   return {
-    title: data ? `หมวดหมู่: ${data.categoryName} | JABNOM` : 'Category',
+    title: `หมวดหมู่: ${data.categoryName} | JABNOM`,
+    description: data.description || `รวมบทความทั้งหมดในหมวดหมู่ ${data.categoryName}`,
     alternates: {
       canonical: `/category/${decodedSlug}`,
     }

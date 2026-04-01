@@ -22,18 +22,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!post) return {};
 
   const yoast = post.yoast_head_json;
+  const renderedTitle = post.title?.rendered || '';
+  const cleanTitle = renderedTitle.replace(/<\/?[^>]+(>|$)/g, "");
+
   if (!yoast) {
     return {
-      title: post.title.rendered,
+      title: cleanTitle,
     };
   }
 
   return {
-    title: yoast.title,
+    title: cleanTitle,
     description: yoast.description || yoast.og_description,
     openGraph: {
-      title: yoast.og_title,
-      description: yoast.og_description,
+      title: yoast.og_title || cleanTitle,
+      description: yoast.og_description || yoast.description,
       url: yoast.og_url,
       siteName: yoast.og_site_name,
       images: yoast.og_image ? yoast.og_image.map((img: any) => ({ url: img.url })) : [],
