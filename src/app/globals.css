@@ -64,15 +64,19 @@ a {
 .classic-editor-content, 
 .classic-editor-content * {
   font-family: var(--font-thai), var(--font-primary), sans-serif !important;
+  white-space: normal !important;
   word-wrap: break-word !important;
   overflow-wrap: break-word !important;
+  word-break: break-word !important;
   box-sizing: border-box;
+  max-width: 100% !important;
 }
 
 .classic-editor-content p {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  margin-bottom: 1.5rem;
 }
 
 /* Classic Editor Gallery */

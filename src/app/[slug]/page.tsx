@@ -72,7 +72,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navigation />
-      <article style={{ flexGrow: 1, padding: '8rem 2rem 4rem', maxWidth: '800px', margin: '0 auto', width: '100%' }}>
+      <article lang="th" style={{ flexGrow: 1, padding: '8rem 2rem 4rem', maxWidth: '800px', margin: '0 auto', width: '100%' }}>
         {imageUrl && (
           <img 
             src={imageUrl} 
