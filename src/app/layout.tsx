@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Outfit } from 'next/font/google';
+import { Inter, Outfit, Kanit } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({ 
@@ -11,6 +11,13 @@ const inter = Inter({
 const outfit = Outfit({ 
   subsets: ['latin'], 
   variable: '--font-heading',
+  display: 'swap',
+});
+
+const kanit = Kanit({
+  subsets: ['thai', 'latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-thai',
   display: 'swap',
 });
 
@@ -30,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable} ${kanit.variable}`}>
       <body>{children}</body>
     </html>
   );

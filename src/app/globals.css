@@ -6,6 +6,8 @@
   --accent-glow: rgba(217, 70, 239, 0.4);
   --card-bg: #18181b;
   --border-color: #27272a;
+  --font-primary: var(--font-thai), 'Inter', sans-serif;
+  --font-heading: var(--font-thai), 'Outfit', sans-serif;
 }
 
 * {
@@ -22,7 +24,7 @@ html, body {
 body {
   color: var(--text-color);
   background: var(--bg-color);
-  font-family: var(--font-primary), sans-serif;
+  font-family: var(--font-thai), var(--font-primary), sans-serif;
   line-height: 1.6;
 }
 
@@ -57,6 +59,20 @@ a {
 }
 .classic-editor-content a:hover {
   text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.classic-editor-content, 
+.classic-editor-content * {
+  font-family: var(--font-thai), var(--font-primary), sans-serif !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  box-sizing: border-box;
+}
+
+.classic-editor-content p {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Classic Editor Gallery */

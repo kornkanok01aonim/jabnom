@@ -30,7 +30,7 @@ export default function MasonryGrid({ posts, hideHeader = false }: { posts: Post
           >
             <NewsCard 
               {...post} 
-              size={index % 5 === 0 ? 'large' : 'small'} 
+              size="large" 
             />
           </div>
         ))}

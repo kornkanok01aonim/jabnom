@@ -42,7 +42,7 @@ export default function NewsCard({ title, excerpt, imageUrl, date, category, cat
           <span>{date}</span>
         </div>
         <h3 className={styles.title}>{title}</h3>
-        {size === 'large' && <div className={styles.excerpt} dangerouslySetInnerHTML={{ __html: excerpt }} />}
+        <div className={styles.excerpt} dangerouslySetInnerHTML={{ __html: excerpt }} />
         <span className={styles.readMore}>
           อ่านเพิ่ม <span className={styles.arrow}>&rarr;</span>
         </span>
