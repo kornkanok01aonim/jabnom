@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit, Kanit } from 'next/font/google';
 import './globals.css';
+import Script from 'next/script';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -38,7 +39,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} ${kanit.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script 
+          src="https://www.tiktok.com/embed.js" 
+          strategy="lazyOnload" 
+        />
+      </body>
     </html>
   );
 }

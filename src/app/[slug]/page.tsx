@@ -54,6 +54,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
+function processTiktokEmbeds(html: string) {
+  // Regex to match TikTok URLs that are on their own line (wrapped in <p> tags)
+  // Supports desktop links (with video ID) and mobile short links (vt.tiktok.com)
+  const tiktokRegex = /<p>(?:\s*<a[^>]*>)?\s*(https?:\/\/(?:www\.)?tiktok\.com\/@[\w.-]+\/video\/(\d+)|https?:\/\/vt\.tiktok\.com\/[\w-]+\/?)\s*(?:<\/a>\s*)?<\/p>/gi;
+  
+  return html.replace(tiktokRegex, (match, url, videoId) => {
+    const cleanUrl = url.split('?')[0];
+    if (videoId) {
+      return `<blockquote class="tiktok-embed" cite="${cleanUrl}" data-video-id="${videoId}" style="max-width: 605px;min-width: 325px;margin: 2rem auto;"><section></section></blockquote>`;
+    } else {
+      return `<blockquote class="tiktok-embed" cite="${cleanUrl}" style="max-width: 605px;min-width: 325px;margin: 2rem auto;"><section></section></blockquote>`;
+    }
+  });
+}
+
 export default async function PostPage({ params }: { params: { slug: string } }) {
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug);
@@ -68,6 +83,8 @@ export default async function PostPage({ params }: { params: { slug: string } })
   const termGroup = post._embedded?.['wp:term'] || [];
   const catTerms = termGroup[0] || [];
   const tagTerms = termGroup[1] || [];
+
+  const processedContent = processTiktokEmbeds(post.content.rendered);
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -117,7 +134,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <div 
           className="classic-editor-content"
           style={{ fontSize: '1.15rem', lineHeight: '1.8' }}
-          dangerouslySetInnerHTML={{ __html: post.content.rendered }} 
+          dangerouslySetInnerHTML={{ __html: processedContent }} 
         />
 
         {tagTerms.length > 0 && (
