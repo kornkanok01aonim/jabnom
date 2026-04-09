@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: yoast.og_title || yoast.title,
       description: yoast.og_description || yoast.description,
-      url: yoast.og_url,
+      url: yoast.og_url ? yoast.og_url.replace('admin.jabnom.com', 'jabnom.com') : `/${decodedSlug}`,
       siteName: yoast.og_site_name,
       images: yoast.og_image ? yoast.og_image.map((img: any) => ({ url: img.url })) : [],
       locale: yoast.og_locale,

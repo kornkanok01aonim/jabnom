@@ -28,12 +28,12 @@ export const metadata: Metadata = {
   description: 'เว็บไซต์ที่รวบรวมรูปภาพและเรื่องราวของสาวสวย ดารา นางแบบ เน็ตไอดอล และโอนลี่แฟนส์ ที่คุณไม่ควรพลาด',
   keywords: ['สาวสวย', 'ดารา', 'นางแบบ', 'เน็ตไอดอล', 'โอนลี่แฟนส์', 'jabnom'],
   alternates: {
-    canonical: '/',
+    canonical: './',
   },
   openGraph: {
     title: 'JABNOM | แหล่งรวมสาวสวย ดารา นางแบบ โอนลี่แฟนส์',
     description: 'เว็บไซต์ที่รวบรวมรูปภาพและเรื่องราวของสาวสวย ดารา นางแบบ เน็ตไอดอล และโอนลี่แฟนส์ ที่คุณไม่ควรพลาด',
-    url: 'https://jabnom.com',
+    url: './',
     siteName: 'JABNOM',
     locale: 'th_TH',
     type: 'website',
