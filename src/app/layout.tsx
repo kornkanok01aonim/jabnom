@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit, Kanit } from 'next/font/google';
 import './globals.css';
-import Script from 'next/script';
+
 
 const inter = Inter({ 
   subsets: ['latin'], 
