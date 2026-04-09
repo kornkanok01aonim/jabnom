@@ -29,26 +29,25 @@
 }
 
 .masonry {
-  column-count: 3;
-  column-gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 
 .masonryItem {
-  break-inside: avoid;
-  margin-bottom: 2rem;
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @media (max-width: 1024px) {
   .masonry {
-    column-count: 2;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
   .masonry {
-    column-count: 1;
-    column-gap: 0;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   .section {
     padding: 2rem 1rem 4rem;

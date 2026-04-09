@@ -41,10 +41,6 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${outfit.variable} ${kanit.variable}`}>
       <body>
         {children}
-        <Script 
-          src="https://www.tiktok.com/embed.js" 
-          strategy="lazyOnload" 
-        />
       </body>
     </html>
   );

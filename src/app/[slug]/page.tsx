@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import GalleryLightbox from '../../components/GalleryLightbox';
+import TiktokEmbedLoader from '../../components/TiktokEmbedLoader';
 async function fetchPostBySlug(slug: string) {
   const wpApiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
   if (!wpApiUrl) return null;
@@ -158,6 +159,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           </div>
         )}
       </article>
+      <TiktokEmbedLoader />
       <GalleryLightbox />
       <Footer />
     </main>
