@@ -79,6 +79,10 @@ export default async function PostPage({ params }: { params: { slug: string } })
   if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
     const rawUrl = post._embedded['wp:featuredmedia'][0].source_url;
     imageUrl = encodeURI(rawUrl);
+  } else if (post.jetpack_featured_media_url) {
+    imageUrl = encodeURI(post.jetpack_featured_media_url);
+  } else if (post.yoast_head_json?.og_image?.[0]?.url) {
+    imageUrl = encodeURI(post.yoast_head_json.og_image[0].url);
   }
 
   const termGroup = post._embedded?.['wp:term'] || [];

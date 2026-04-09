@@ -39,6 +39,10 @@ async function fetchHomepageData(page: number): Promise<{ posts: Post[], tags: a
           let imageUrl = '';
           if (wp._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
             imageUrl = encodeURI(wp._embedded['wp:featuredmedia'][0].source_url);
+          } else if (wp.jetpack_featured_media_url) {
+            imageUrl = encodeURI(wp.jetpack_featured_media_url);
+          } else if (wp.yoast_head_json?.og_image?.[0]?.url) {
+            imageUrl = encodeURI(wp.yoast_head_json.og_image[0].url);
           }
           
           const termGroup = wp._embedded?.['wp:term'] || [];
