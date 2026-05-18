@@ -3,8 +3,9 @@ import Footer from '../../../components/Footer';
 import MasonryGrid from '../../../components/MasonryGrid';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
-async function fetchCategoryPosts(slug: string) {
+async function fetchCategoryPosts(slug: string, page: number = 1) {
   const wpApiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
   if (!wpApiUrl) return null;
 
@@ -18,7 +19,24 @@ async function fetchCategoryPosts(slug: string) {
     const category = categories[0];
     
     // 2. Fetch Posts by Category ID using REST API
-    const postsRes = await fetch(`${wpApiUrl}/wp-json/wp/v2/posts?categories=${category.id}&_embed&per_page=12`, { cache: 'no-store' });
+    const postsPerPage = 9;
+    const offset = (page - 1) * postsPerPage;
+    const postsRes = await fetch(`${wpApiUrl}/wp-json/wp/v2/posts?categories=${category.id}&_embed&per_page=${postsPerPage}&offset=${offset}`, { cache: 'no-store' });
+    
+    let totalPages = 1;
+    if (postsRes.ok) {
+      const totalPagesHeader = postsRes.headers.get('x-wp-totalpages');
+      if (totalPagesHeader) {
+        totalPages = parseInt(totalPagesHeader, 10);
+      } else {
+        const totalHeader = postsRes.headers.get('x-wp-total');
+        const totalPosts = totalHeader ? parseInt(totalHeader, 10) : 0;
+        if (totalPosts > 0) {
+          totalPages = Math.ceil(totalPosts / postsPerPage);
+        }
+      }
+    }
+
     const postsData = await postsRes.json();
     
     const formattedPosts = postsData.map((wp: any) => {
@@ -50,7 +68,8 @@ async function fetchCategoryPosts(slug: string) {
     return {
       categoryName: category.name,
       description: category.description,
-      posts: formattedPosts
+      posts: formattedPosts,
+      totalPages: totalPages
     };
   } catch (error) {
     console.error("Failed to fetch category:", error);
@@ -60,7 +79,7 @@ async function fetchCategoryPosts(slug: string) {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const decodedSlug = decodeURIComponent(params.slug);
-  const data = await fetchCategoryPosts(decodedSlug);
+  const data = await fetchCategoryPosts(decodedSlug, 1);
   
   if (!data) return { title: 'Category' };
 
@@ -73,9 +92,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+export default async function CategoryPage({ params, searchParams }: { params: { slug: string }, searchParams: { page?: string } }) {
+  const currentPage = Number(searchParams.page) || 1;
   const decodedSlug = decodeURIComponent(params.slug);
-  const data = await fetchCategoryPosts(decodedSlug);
+  const data = await fetchCategoryPosts(decodedSlug, currentPage);
   
   if (!data) return notFound();
 
@@ -92,9 +112,35 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         </p>
       </div>
 
-      <section style={{ flexGrow: 1 }}>
+      <section style={{ flexGrow: 1, padding: '2rem 0', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
         {data.posts.length > 0 ? (
-          <MasonryGrid posts={data.posts} hideHeader={true} />
+          <>
+            <MasonryGrid posts={data.posts} hideHeader={true} />
+            
+            {data.totalPages > 1 && (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', marginTop: '3rem' }}>
+                {currentPage > 1 ? (
+                  <Link href={`/category/${params.slug}?page=${currentPage - 1}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-secondary)', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px', border: '1px solid var(--accent-color)', transition: 'all 0.3s' }}>
+                    หน้าก่อนหน้า
+                  </Link>
+                ) : (
+                  <div style={{ padding: '0.75rem 1.5rem', visibility: 'hidden' }}>หน้าก่อนหน้า</div>
+                )}
+                
+                <span style={{ color: 'var(--text-muted)' }}>
+                  หน้า {currentPage} / {data.totalPages}
+                </span>
+                
+                {currentPage < data.totalPages ? (
+                  <Link href={`/category/${params.slug}?page=${currentPage + 1}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-secondary)', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px', border: '1px solid var(--accent-color)', transition: 'all 0.3s' }}>
+                    หน้าถัดไป
+                  </Link>
+                ) : (
+                  <div style={{ padding: '0.75rem 1.5rem', visibility: 'hidden' }}>หน้าถัดไป</div>
+                )}
+              </div>
+            )}
+          </>
         ) : (
           <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>
             ยังไม่มีบทความในหมวดหมู่นี้
